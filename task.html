@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Interactive Boxes</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      padding: 20px;
+      color: #333;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #28a745;
+    }
+
+    .box {
+      border: 2px solid #ccc;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .box.active {
+      border-color: #28a745;
+      background-color: #eaffea;
+    }
+
+    .discount-tag {
+      font-size: 12px;
+      background-color: #28a745;
+      color: white;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-left: 8px;
+    }
+
+    .most-popular {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background-color: #28a745;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 5px;
+      font-size: 12px;
+    }
+
+    .options {
+      margin-top: 10px;
+      display: none;
+    }
+
+    .box.active .options {
+      display: block;
+    }
+
+    select {
+      margin: 5px 0;
+      width: 100%;
+      padding: 5px;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .total {
+      font-weight: bold;
+      color: #000;
+    }
+
+    button {
+      background-color: #28a745;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>YAY! It's BOGO</h2>
+
+    <div class="box" onclick="selectBox(1)">
+      <input type="radio" name="unit" id="unit1">
+      <label for="unit1"><strong>1 Unit</strong> <span class="discount-tag">10% Off</span><br>Standard Price</label>
+      <div class="options">
+        <p>#1</p>
+        <select><option>S</option><option>M</option><option>L</option></select>
+        <select><option>Black</option><option>White</option><option>Red</option></select>
+      </div>
+      <p>$10.00 USD <del>$24.00 USD</del></p>
+    </div>
+
+    <div class="box" onclick="selectBox(2)">
+      <input type="radio" name="unit" id="unit2">
+      <label for="unit2"><strong>2 Unit</strong> <span class="discount-tag">20% Off</span></label>
+      <span class="most-popular">MOST POPULAR</span>
+      <div class="options">
+        <p>#1</p>
+        <select><option>S</option><option>M</option><option>L</option></select>
+        <select><option>Black</option><option>White</option><option>Red</option></select>
+        <p>#2</p>
+        <select><option>S</option><option>M</option><option>L</option></select>
+        <select><option>Color</option><option>White</option><option>Red</option></select>
+      </div>
+      <p>$18.00 USD <del>$24.00 USD</del></p>
+    </div>
+
+    <div class="box" onclick="selectBox(3)">
+      <input type="radio" name="unit" id="unit3">
+      <label for="unit3"><strong>3 Unit</strong> <span class="discount-tag">30% Off</span></label>
+      <div class="options">
+        <p>#1</p>
+        <select><option>S</option><option>M</option><option>L</option></select>
+        <select><option>Black</option><option>White</option><option>Red</option></select>
+        <p>#2</p>
+        <select><option>S</option><option>M</option><option>L</option></select>
+        <select><option>Color</option><option>White</option><option>Red</option></select>
+        <p>#3</p>
+        <select><option>S</option><option>M</option><option>L</option></select>
+        <select><option>Color</option><option>White</option><option>Red</option></select>
+      </div>
+      <p>$24.00 USD <del>$36.00 USD</del></p>
+    </div>
+
+    <div class="footer">
+      <p style="color: #28a745;">Free Delivery</p>
+      <p class="total">Total: <span id="totalPrice">$0.00 USD</span></p>
+      <button>+ Add to Cart</button>
+    </div>
+  </div>
+
+  <script>
+    let prices = {
+      1: 10.00,
+      2: 18.00,
+      3: 24.00
+    };
+
+    function selectBox(num) {
+      let boxes = document.querySelectorAll('.box');
+      boxes.forEach((box, index) => {
+        if (index === num - 1) {
+          box.classList.add('active');
+          box.querySelector('input[type="radio"]').checked = true;
+        } else {
+          box.classList.remove('active');
+        }
+      });
+
+      document.getElementById('totalPrice').innerText = `$${prices[num].toFixed(2)} USD`;
+    }
+  </script>
+</body>
+</html>
